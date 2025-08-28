@@ -6,13 +6,13 @@
 
 - name: Mettre à jour tous les paquets
   apt:
-    upgrade: dist
+    upgrade: "{{ ubuntu_upgrade_type }}"
     update_cache: yes
   when: ansible_os_family == "Debian"
 
 - name: Supprimer les paquets inutiles
   apt:
-    autoremove: yes
-    autoclean: yes
+    autoremove: "{{ ubuntu_autoremove }}"
+    autoclean: "{{ ubuntu_autoclean }}"
   when: ansible_os_family == "Debian"
 

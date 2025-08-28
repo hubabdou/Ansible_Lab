@@ -1,2 +1,14 @@
 ---
 # defaults file for roles/ubuntu
+# Active/désactive la mise à jour du cache
+ubuntu_update_cache: true
+
+# Active/désactive la mise à jour complète
+ubuntu_upgrade: true
+
+# Type de mise à jour : safe, full, dist
+ubuntu_upgrade_type: "dist"
+
+# Nettoyage
+ubuntu_autoremove: true
+ubuntu_autoclean: true
