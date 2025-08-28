@@ -1,0 +1,9 @@
+- name: System update and Services deployment on all hosts
+  hosts: all
+  become: true
+  gather_facts: yes
+
+  roles:
+  - ubuntu
+  - apache2
+  - drbd

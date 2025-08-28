@@ -1,0 +1,50 @@
+---
+- name: Install DRBD packages (Debian/Ubuntu)
+  apt:
+    name:
+      - drbd-utils
+      - "linux-modules-extra-{{ ansible_kernel }}"
+    state: present
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: Install DRBD packages (RedHat/CentOS)
+  yum:
+    name:
+      - drbd84-utils
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Activate the DRBD kernel module
+  modprobe:
+    name: drbd
+    state: present
+
+- name: Check that the DRBD module is loaded
+  shell: lsmod | grep drbd
+  register: drbd_module
+  changed_when: false
+
+- name: Create DRBD configuration directory
+  file:
+    path: /etc/drbd.d
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: DRBDDeploy global_common.conf
+  template:
+    src: global_common.conf.j2
+    dest: /etc/drbd.d/global_common.conf
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Deploy DRBD resource file
+  template:
+    src: opt.res.j2
+    dest: /etc/drbd.d/opt.res
+    owner: root
+    group: root
+    mode: '0600'
