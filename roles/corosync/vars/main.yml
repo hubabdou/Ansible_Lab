@@ -1,0 +1,6 @@
+---
+node1_hostname: tokyo
+node1_ip: 192.168.129.131
+
+node2_hostname: tokyo
+node2_ip: 192.168.129.132

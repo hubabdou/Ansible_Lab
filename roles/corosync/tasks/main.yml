@@ -1,0 +1,32 @@
+---
+- name: Installer les paquets nécessaires
+  apt:
+    name:
+      - psmisc
+      - corosync
+      - pacemaker
+      - crmsh
+      - linux-image-generic
+    state: present
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: Créer le fichier de configuration de Corosync
+  template:
+    src: corosync.conf.j2
+    dest: /etc/corosync/corosync.conf
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Activer et démarrer Corosync
+  service:
+    name: corosync
+    state: started
+    enabled: yes
+
+- name: Activer et démarrer Pacemaker
+  service:
+    name: pacemaker
+    state: started
+    enabled: yes

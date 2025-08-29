@@ -1,0 +1,9 @@
+---
+cluster_name: "mycluster"
+
+cluster_nodes:
+  - { name: "node1", ip: "192.168.129.131", nodeid: 1 }
+  - { name: "node2", ip: "192.168.129.132", nodeid: 2 }
+
+bindnetaddr: "192.168.129.0"   # réseau du cluster
+mcastport: 5405
